@@ -3,8 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from 'pages/HomePage';
 import MoviesPage from 'pages/MoviesPage';
 import MovieDetailsPage from 'pages/MovieDetailsPage/MovieDetailsPage';
-import Cast from 'components/Cast';
-import Reviews from 'components/Reviews';
+import Cast from 'components/Cast/Cast';
+import Reviews from 'components/Reviews/Reviews';
 import Header from 'components/Header/Header';
 
 import styles from './App.module.scss';

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useParams, Outlet } from 'react-router-dom';
 
 import { getMovieDetails, imageUrl } from 'shared/api';
+import getReleaseYear from '../../shared/getReleaseYear';
 
 import styles from './MovieDetailsPage.module.scss';
 
@@ -12,7 +13,7 @@ const MovieDetailsPage = () => {
   const { movieId } = useParams();
 
   useEffect(() => {
-    const getMovieData = async () => {
+    const fetchMovieData = async () => {
       try {
         const data = await getMovieDetails(movieId);
         setMovie(data);
@@ -21,15 +22,10 @@ const MovieDetailsPage = () => {
         console.log(error);
       }
     };
-    getMovieData();
+    fetchMovieData();
   }, [movieId]);
 
   const { title, overview, release_date, poster_path } = movie;
-
-  const getReleaseYear = releaseDate => {
-    const date = new Date(releaseDate);
-    return date.getFullYear();
-  };
 
   const getMovieGenres = genres => {
     return genres.map(genre => genre.name).join(', ');
@@ -41,14 +37,13 @@ const MovieDetailsPage = () => {
       <div className={styles.movie_wrapper}>
         <img
           className={styles.movie_image}
-          src={`${imageUrl}${poster_path}`}
+          src={poster_path ? `${imageUrl}w342/${poster_path}` : 'No image'}
           alt={title}
-          width="342"
         />
         <div className={styles.movie_description}>
           <div>
             <h2>{title ? title : 'Movie title'}</h2>
-            <h3>{getReleaseYear(release_date)}</h3>
+            <h3>{release_date ? getReleaseYear(release_date) : 'Unknown'}</h3>
             <h4>{getMovieGenres(genres)}</h4>
           </div>
 
