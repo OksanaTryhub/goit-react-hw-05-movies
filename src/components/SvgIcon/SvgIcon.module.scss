@@ -1,0 +1,21 @@
+.icon {
+  width: 70px;
+  height: 70px;
+  fill: rgb(177, 177, 177);
+  animation: 4s rotate infinite linear;
+  transition: fill ease 250ms;
+}
+
+.icon:hover {
+  fill: rgb(189, 13, 13);
+  filter: drop-shadow(0px 0px 1px rgb(189, 13, 13));
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(-30deg);
+  }
+  to {
+    transform: rotateY(30deg);
+  }
+}

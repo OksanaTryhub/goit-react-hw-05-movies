@@ -1,0 +1,73 @@
+//.navLink {
+//   font-size: 32px;
+//   color: rgb(177, 177, 177);
+// }
+
+// .navLink:hover {
+//   color: rgb(189, 13, 13);
+// }
+
+.searchbar {
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: 1100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+  width: 500px;
+
+  padding: 0px 2px;
+  color: #fff;
+  background-color: #000000;
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.searchForm__button {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border: none;
+  opacity: 0.6;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  outline: none;
+}
+
+.searchForm__button:hover {
+  opacity: 1;
+}
+
+.searchForm__buttonLabel {
+  fill: rgb(177, 177, 177);
+}
+
+.searchForm__input {
+  display: inline-block;
+  width: 100%;
+  font: inherit;
+  color: #424558;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  padding-left: 8px;
+  padding-right: 4px;
+}
+
+.searchForm__input::placeholder {
+  font: inherit;
+  font-size: 18px;
+}

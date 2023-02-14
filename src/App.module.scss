@@ -36,8 +36,12 @@ section {
   margin-top: 20px;
 }
 
+a {
+  text-decoration: none;
+}
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }

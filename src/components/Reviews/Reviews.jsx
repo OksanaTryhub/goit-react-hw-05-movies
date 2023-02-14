@@ -7,16 +7,20 @@ import styles from './Reviews.module.scss';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const { movieId } = useParams();
 
   useEffect(() => {
     const fetchMovieReviews = async () => {
       try {
+        setLoading(true);
         const data = await getMovieReviews(movieId);
         setReviews(data.results);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchMovieReviews();
@@ -48,8 +52,16 @@ const Reviews = () => {
 
   return (
     <div>
-      <h2>Reviews</h2>
-      <ul className={styles.reviewList}>{elements}</ul>
+      {loading ? (
+        <h2>...loading</h2>
+      ) : reviews.length ? (
+        <>
+          <h2>Reviews</h2>
+          <ul className={styles.reviewList}>{elements}</ul>
+        </>
+      ) : (
+        <h2>There aren't any reviews for this moview yet!</h2>
+      )}
     </div>
   );
 };

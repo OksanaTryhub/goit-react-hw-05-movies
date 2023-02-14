@@ -6,16 +6,18 @@ import { Link } from 'react-router-dom';
 
 import styles from './MovieList.module.scss';
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, title }) => {
   return (
     <div>
-      <h2>Trending movies</h2>
+      <h2>{title}</h2>
       <ul className={styles.movieList}>
         {movies.map(({ id, title, release_date, poster_path }) => (
           <Link key={id} to={`/movies/${id}`} className={styles.movieListItem}>
             <MovieListItem
-              image={`${imageUrl}w342/${poster_path}`}
-              date={getReleaseYear(release_date)}
+              image={
+                poster_path ? `${imageUrl}w342/${poster_path}` : 'No image'
+              }
+              date={release_date ? getReleaseYear(release_date) : 'Unknown'}
               title={title}
             />
           </Link>

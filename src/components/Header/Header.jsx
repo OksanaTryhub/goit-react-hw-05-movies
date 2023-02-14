@@ -1,17 +1,24 @@
 import { Link, NavLink } from 'react-router-dom';
+import SvgIcon from 'components/SvgIcon/SvgIcon';
 
 import styles from './Header.module.scss';
 
 const Header = () => {
   return (
-    <header>
-      <div className={styles.container}>
+    <header className={styles.header}>
+      <div className={styles.header__wrap}>
         <div className={styles.logo}>
-          <Link to="/"> MOVIES</Link>
+          <Link to="/">
+            <SvgIcon id="svg" />
+          </Link>
         </div>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/movies">Movies</NavLink>
+        <nav className={styles.navMenu}>
+          <NavLink className={styles.navLink} to="/">
+            Home
+          </NavLink>
+          <NavLink className={styles.navLink} to="/movies">
+            Movies
+          </NavLink>
         </nav>
       </div>
     </header>
