@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getMovieReviews, imageUrl } from 'shared/api';
+import { getReviewDate } from '../../shared/getDate';
+import Loader from 'components/Loader/Loader';
 
 import styles from './Reviews.module.scss';
 
@@ -28,8 +30,8 @@ const Reviews = () => {
 
   const elements = reviews.map(
     ({ id, author, author_details, content, updated_at }) => (
-      <li key={id} className={styles.reviewListItem}>
-        <div className={styles.reviewAuthor}>
+      <li key={id} className={styles.review_listItem}>
+        <div className={styles.review_author}>
           <img
             src={
               author_details.avatar_path &&
@@ -41,9 +43,8 @@ const Reviews = () => {
             width="45"
             height="45"
           />
-          <h3>{author}</h3>
-          <h4>{author_details.username}</h4>
-          <p>{updated_at}</p>
+          <h3>{author}</h3>/<h4>{author_details.username}</h4>
+          <p className={styles.review_date}>{getReviewDate(updated_at)}</p>
         </div>
         <p>{content}</p>
       </li>
@@ -53,14 +54,16 @@ const Reviews = () => {
   return (
     <div>
       {loading ? (
-        <h2>...loading</h2>
+        <Loader />
       ) : reviews.length ? (
         <>
-          <h2>Reviews</h2>
-          <ul className={styles.reviewList}>{elements}</ul>
+          <h2 className={styles.review_title}>Reviews</h2>
+          <ul className={styles.review_list}>{elements}</ul>
         </>
       ) : (
-        <h2>There aren't any reviews for this moview yet!</h2>
+        <h2 className={styles.review_title}>
+          There aren't any reviews for this moview yet!
+        </h2>
       )}
     </div>
   );

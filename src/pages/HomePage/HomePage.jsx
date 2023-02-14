@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 
-import { getTrendingMovies } from './../shared/api';
+import { getTrendingMovies } from '../../shared/api';
 
 import MovieList from 'components/MovieList/MovieList';
 import Button from 'components/Button/Button';
+
+import styles from './HomePage.module.scss';
+import Loader from 'components/Loader/Loader';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -39,9 +42,20 @@ const HomePage = () => {
     setPage(prevPage => prevPage + 1);
   };
 
+  const myMap = new Map();
+  movies.forEach(movie => myMap.set(movie.id, movie));
+  const uniqueMovies = Array.from(myMap.values());
+
   return (
     <div>
-      <MovieList movies={movies} title={'Trending movies'} />
+      {loading ? (
+        <Loader />
+      ) : (
+        <MovieList
+          movies={uniqueMovies}
+          title={<p className={styles.text}>Trending movies</p>}
+        />
+      )}
       {!loading && totalPages > 1 && page < totalPages && (
         <Button onClick={loadMore} />
       )}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useParams, Outlet } from 'react-router-dom';
 
 import { getMovieDetails, imageUrl } from 'shared/api';
-import getReleaseYear from '../../shared/getReleaseYear';
+import { getReleaseYear } from '../../shared/getDate';
 
 import styles from './MovieDetailsPage.module.scss';
 
@@ -33,30 +33,42 @@ const MovieDetailsPage = () => {
 
   return (
     <div className={styles.movie_details}>
-      <Link to="/"> Go back</Link>
       <div className={styles.movie_wrapper}>
+        <Link to="/">
+          <button className={styles.movie_button}>← Go back</button>
+        </Link>
         <img
           className={styles.movie_image}
           src={poster_path ? `${imageUrl}w342/${poster_path}` : 'No image'}
           alt={title}
         />
-        <div className={styles.movie_description}>
-          <div>
-            <h2>{title ? title : 'Movie title'}</h2>
-            <h3>{release_date ? getReleaseYear(release_date) : 'Unknown'}</h3>
-            <h4>{getMovieGenres(genres)}</h4>
-          </div>
+        <div className={styles.movie_descriptionWrapper}>
+          <div className={styles.movie_description}>
+            <div>
+              <h2 className={styles.movie_title}>
+                {title ? title : 'Movie title'}
+              </h2>
+              <h3 className={styles.movie_subtitle}>
+                {release_date ? getReleaseYear(release_date) : 'Unknown'}
+              </h3>
+              <h4 className={styles.movie_subtitle}>
+                {getMovieGenres(genres)}
+              </h4>
+            </div>
 
-          <p>{overview}</p>
+            <p>{overview}</p>
+          </div>
+          <div className={styles.movie_buttonsWrapper}>
+            <Link to="cast">
+              <button className={styles.movie_button}>Cast</button>
+            </Link>
+            <Link to="reviews">
+              <button className={styles.movie_button}>Reviews</button>
+            </Link>
+          </div>
         </div>
       </div>
 
-      <button>
-        <Link to="cast">Cast</Link>
-      </button>
-      <button>
-        <Link to="reviews">Reviews</Link>
-      </button>
       <Outlet />
     </div>
   );

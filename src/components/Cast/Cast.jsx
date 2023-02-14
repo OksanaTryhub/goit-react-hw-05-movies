@@ -15,7 +15,6 @@ const Cast = ({ cast }) => {
       try {
         const data = await getMovieCredits(movieId);
         setCastData(data.cast);
-        // console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -24,22 +23,23 @@ const Cast = ({ cast }) => {
   }, [movieId]);
 
   const elements = castData.map(({ id, name, profile_path, character }) => (
-    <li key={id} className={styles.castGalleryItem}>
+    <li key={id} className={styles.cast_card}>
       <img
+        className={styles.cast_cardImage}
         src={profile_path ? `${imageUrl}w185/${profile_path}` : 'No photo'}
         alt={name}
         width="185"
         height="278"
       />
-      <h3>{name}</h3>
-      <h4>{character}</h4>
+      <h3 className={styles.cast_cardTitle}>{name}</h3>
+      <h4 className={styles.cast_cardSubtitle}>{character}</h4>
     </li>
   ));
 
   return (
-    <div>
-      <h2>Cast</h2>
-      <ul className={styles.castGallery}>{elements}</ul>
+    <div className={styles.cast_wrapper}>
+      <h2 className={styles.cast_title}>Cast</h2>
+      <ul className={styles.cast_gallery}>{elements}</ul>
     </div>
   );
 };

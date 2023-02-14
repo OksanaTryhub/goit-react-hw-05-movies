@@ -4,13 +4,15 @@ import { useSearchParams } from 'react-router-dom';
 import SearchMovie from 'components/SearchMovie/SearchMovie';
 import MovieList from 'components/MovieList/MovieList';
 import Button from 'components/Button/Button';
-import { getMovieByKeyword } from './../shared/api';
+import { getMovieByKeyword } from '../../shared/api';
+import Loader from 'components/Loader/Loader';
+
+import styles from './MoviesPage.module.scss';
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  // const [query, setQuery] = useState('');
   const [totalMovies, setTotalMovies] = useState('');
   const [totalPages, setTotalPages] = useState(null);
 
@@ -64,17 +66,31 @@ const MoviesPage = () => {
     setPage(prevPage => prevPage + 1);
   };
 
+  const myMap = new Map();
+  movies.forEach(movie => myMap.set(movie.id, movie));
+  const uniqueMovies = Array.from(myMap.values());
+
   return (
     <div>
       <SearchMovie onSubmit={searchMovies} />
-      {!movies.length && !loading && <p>Let's look for the movie</p>}
-
-      <MovieList
-        movies={movies}
-        title={
-          totalMovies && search && `Found ${totalMovies} movies for "${search}"`
-        }
-      />
+      {!movies.length && !loading && (
+        <p className={styles.text}>Let's look for the movie</p>
+      )}
+      {loading ? (
+        <Loader />
+      ) : (
+        <MovieList
+          movies={uniqueMovies}
+          title={
+            totalMovies &&
+            search && (
+              <p className={styles.text}>
+                Found {totalMovies} movies for "{search}"
+              </p>
+            )
+          }
+        />
+      )}
 
       {!loading && totalPages > 1 && page < totalPages && (
         <Button onClick={loadMore} />
