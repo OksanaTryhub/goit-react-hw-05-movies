@@ -44,7 +44,9 @@ const Reviews = () => {
           ) : (
             <img src={avatar} alt={author} width="45" height="45" />
           )}
-          <h3>{author}</h3>/<h4>{author_details.username}</h4>
+          <h3 className={styles.author_name}>
+            {author} / {author_details.username}
+          </h3>
           <p className={styles.review_date}>{getReviewDate(updated_at)}</p>
         </div>
         <p>{content}</p>
