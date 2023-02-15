@@ -53,7 +53,7 @@ const Reviews = () => {
   );
 
   return (
-    <div>
+    <div className={styles.review_wrapper}>
       {loading ? (
         <Loader />
       ) : reviews.length ? (

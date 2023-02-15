@@ -86,5 +86,8 @@
 }
 
 .movie_description {
-  // margin-bottom: auto;
+  margin-bottom: 20px;
+  @media screen and (min-width: 1200px) {
+    margin-bottom: 0;
+  }
 }
