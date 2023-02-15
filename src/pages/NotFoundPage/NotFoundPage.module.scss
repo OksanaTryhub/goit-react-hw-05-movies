@@ -1,6 +1,12 @@
 .notfound {
   display: flex;
-  margin-top: 400px;
-  font-size: 40px;
+  margin-top: 300px;
+  font-size: 32px;
   font-weight: bold;
+  color: rgb(189, 13, 13);
+
+  @media screen and (min-width: 480px) {
+    font-size: 40px;
+    margin-top: 400px;
+  }
 }

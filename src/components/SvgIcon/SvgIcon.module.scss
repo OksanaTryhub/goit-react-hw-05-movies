@@ -1,9 +1,18 @@
 .icon {
-  width: 70px;
-  height: 70px;
+  width: 40px;
+  height: 40px;
   fill: rgb(177, 177, 177);
-  animation: 4s rotate infinite linear;
-  transition: fill ease 250ms;
+
+  @media screen and (min-width: 480px) {
+    width: 50px;
+    height: 50px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 70px;
+    height: 70px;
+    animation: 4s rotate infinite linear;
+    transition: fill ease 250ms;
+  }
 }
 
 .icon:hover {

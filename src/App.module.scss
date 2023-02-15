@@ -1,11 +1,5 @@
 @import-normalize; /* bring in normalize.css styles */
 
-// :root {
-//   --border-color: #dfdfdf;
-//   --font-color: #868686;
-//   --shadow-color: #91919161;
-// }
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -50,5 +44,5 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 100vw;
 }

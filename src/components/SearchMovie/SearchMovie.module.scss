@@ -1,5 +1,5 @@
 .searchbar {
-  top: 35px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%);
   position: fixed;
@@ -8,20 +8,34 @@
   justify-content: center;
   align-items: center;
   height: 64px;
-  width: 500px;
+  width: 100%;
 
   padding: 0px 2px;
   color: #fff;
   background-color: #000000;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+
+  @media screen and (min-width: 480px) {
+    top: 85px;
+    left: 50%;
+  }
+  @media screen and (min-width: 768px) {
+    top: 35px;
+    left: 38%;
+    width: 370px;
+  }
+  @media screen and (min-width: 1200px) {
+    top: 35px;
+    left: 45%;
+    width: 500px;
+  }
 }
 
 .searchForm {
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 600px;
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
