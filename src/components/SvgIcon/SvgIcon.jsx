@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import css from './SvgIcon.module.scss';
+import styles from './SvgIcon.module.scss';
 
 const SvgIcon = ({ id }) => {
   switch (id) {
     case 'svg':
       return (
         <svg
-          className={css.icon}
+          className={styles.icon}
           xmlns="http://www.w3.org/2000/svg"
           width="42.667"
           height="42.667"

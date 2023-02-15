@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { getTrendingMovies } from '../../shared/api';
 
@@ -10,9 +11,12 @@ import Loader from 'components/Loader/Loader';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get('page') || 1;
 
   useEffect(() => {
     const getMovies = (data, page) => {
@@ -39,7 +43,7 @@ const HomePage = () => {
   }, [setMovies, page]);
 
   const loadMore = () => {
-    setPage(prevPage => prevPage + 1);
+    setSearchParams({ page: Number(page) + 1 });
   };
 
   const myMap = new Map();
@@ -47,19 +51,19 @@ const HomePage = () => {
   const uniqueMovies = Array.from(myMap.values());
 
   return (
-    <div>
-      {loading ? (
-        <Loader />
-      ) : (
+    <main>
+      {loading && <Loader />}
+      {movies && (
         <MovieList
           movies={uniqueMovies}
-          title={<p className={styles.text}>Trending movies</p>}
+          titleList={<p className={styles.text}>Trending movies</p>}
         />
       )}
+
       {!loading && totalPages > 1 && page < totalPages && (
         <Button onClick={loadMore} />
       )}
-    </div>
+    </main>
   );
 };
 

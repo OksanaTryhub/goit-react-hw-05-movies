@@ -11,21 +11,21 @@ import styles from './MoviesPage.module.scss';
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [totalMovies, setTotalMovies] = useState('');
   const [totalPages, setTotalPages] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const search = searchParams.get('query');
+  const query = searchParams.get('query');
+  const page = searchParams.get('page');
 
   useEffect(() => {
-    if (search) {
+    if (query) {
       const fetchMovies = async () => {
         try {
           setLoading(true);
 
-          const data = await getMovieByKeyword(search, page);
+          const data = await getMovieByKeyword(query, page);
           setTotalPages(data.total_pages);
 
           if (data.results === 0) {
@@ -43,27 +43,24 @@ const MoviesPage = () => {
       };
       fetchMovies();
     }
-  }, [page, search]);
+  }, [page, query]);
 
   const searchMovies = ({ searchQuery }) => {
-    const query = searchQuery.trim();
-
-    if (query === search) {
+    if (searchQuery.trim() === query) {
       return;
     }
-    if (query === '') {
+    if (searchQuery.trim() === '') {
       setMovies([]);
       setTotalPages(null);
       setSearchParams({});
       return;
     }
-    setSearchParams({ query });
-    setPage(1);
+    setSearchParams({ query: searchQuery.trim(), page: 1 });
     setMovies([]);
   };
 
   const loadMore = () => {
-    setPage(prevPage => prevPage + 1);
+    setSearchParams({ query, page: Number(page) + 1 });
   };
 
   const myMap = new Map();
@@ -71,21 +68,24 @@ const MoviesPage = () => {
   const uniqueMovies = Array.from(myMap.values());
 
   return (
-    <div>
+    <main>
       <SearchMovie onSubmit={searchMovies} />
-      {!movies.length && !loading && (
+      {!movies.length && !loading && !query && (
         <p className={styles.text}>Let's look for the movie</p>
       )}
-      {loading ? (
-        <Loader />
-      ) : (
+      {loading && <Loader />}
+
+      {movies && query && (
         <MovieList
           movies={uniqueMovies}
-          title={
-            totalMovies &&
-            search && (
+          titleList={
+            totalMovies ? (
               <p className={styles.text}>
-                Found {totalMovies} movies for "{search}"
+                Found {totalMovies} movies for "{query}"
+              </p>
+            ) : (
+              <p className={styles.text}>
+                Oops, sorry, we didn't find any movies for "{query}"
               </p>
             )
           }
@@ -95,7 +95,7 @@ const MoviesPage = () => {
       {!loading && totalPages > 1 && page < totalPages && (
         <Button onClick={loadMore} />
       )}
-    </div>
+    </main>
   );
 };
 

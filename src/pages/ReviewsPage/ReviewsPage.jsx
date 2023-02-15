@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom';
 import { getMovieReviews, imageUrl } from 'shared/api';
 import { getReviewDate } from '../../shared/getDate';
 import Loader from 'components/Loader/Loader';
+import avatar from 'components/images/avatar.png';
 
-import styles from './Reviews.module.scss';
+import styles from './ReviewsPage.module.scss';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -32,17 +33,17 @@ const Reviews = () => {
     ({ id, author, author_details, content, updated_at }) => (
       <li key={id} className={styles.review_listItem}>
         <div className={styles.review_author}>
-          <img
-            src={
-              author_details.avatar_path &&
-              !author_details.avatar_path.includes('gravatar')
-                ? `${imageUrl}w45/${author_details.avatar_path}`
-                : 'No photo'
-            }
-            alt={author}
-            width="45"
-            height="45"
-          />
+          {author_details.avatar_path &&
+          !author_details.avatar_path.includes('gravatar') ? (
+            <img
+              src={`${imageUrl}w45/${author_details.avatar_path}`}
+              alt={author}
+              width="45"
+              height="45"
+            />
+          ) : (
+            <img src={avatar} alt={author} width="45" height="45" />
+          )}
           <h3>{author}</h3>/<h4>{author_details.username}</h4>
           <p className={styles.review_date}>{getReviewDate(updated_at)}</p>
         </div>
