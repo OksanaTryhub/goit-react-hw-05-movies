@@ -52,8 +52,8 @@ MovieList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      release_date: PropTypes.string.isRequired,
-      poster_path: PropTypes.string.isRequired,
+      release_date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      poster_path: PropTypes.string,
     })
   ),
   titleList: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),

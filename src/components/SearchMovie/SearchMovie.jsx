@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import styles from './SearchMovie.module.scss';
 import { ReactComponent as SearchIcon } from '../SvgIcon/search.svg';
 
 const SearchMovie = ({ onSubmit }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
+  const [searchQuery, setSearchQuery] = useState(query || '');
 
   const handleChange = ({ target }) => {
     const { value } = target;
@@ -14,6 +17,7 @@ const SearchMovie = ({ onSubmit }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    setSearchParams(e.target.elements.query.value);
     onSubmit({ searchQuery });
   };
 

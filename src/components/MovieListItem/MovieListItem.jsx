@@ -19,5 +19,5 @@ export default MovieListItem;
 MovieListItem.propTypes = {
   image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
